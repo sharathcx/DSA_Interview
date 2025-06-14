@@ -1,5 +1,5 @@
 # basic implementation of graph
-from heapq import heappop, heappush
+
 class Graph:
     def __init__(self, vertex):
         self.vertex = vertex
@@ -57,60 +57,23 @@ class Graph:
                 dfs(v)
 
         return stack[::-1]
-    
-
-    def dijkstra(self, start):
-        dist = {i : float('inf') for i in self.vertex}
-        heapq = [(0,start)]
-        dist[start] = 0
-        visited = set()
-        while heapq:
-            d, node = heappop(heapq)
-            if node not in visited:
-                visited.add(node)
-                for n, w in self.adj_list[node]:
-                    temp_d = d + w
-                    if temp_d < dist[n]:    
-                        dist[n] = temp_d
-                        heappush(heapq, (temp_d, n))
-
-        return dist
-    
-    def bellman(self, start):
-        dist = {i : float('inf') for i in self.vertex}
-        dist[start] = 0
-        for i in range(len(self.vertex)-1):
-            for u, v, w in self.edges:
-                temp = dist[u] + w
-                if temp < dist[v]:
-                    dist[v] = temp
-
-        return dist
-
 
 
     
-                
-    
 
+graph = Graph(["T1", "T2", "T3", "T4", "T5", "T6"])
 
-
-
-
-
-    
-graph = Graph(["A", "B", "C", "D"])
-graph.add_edge("A", "B", 10)
-graph.add_edge("B", "C", 50)
-graph.add_edge("C", "D", 20)
-graph.add_edge("A", "D", 70)
-
-print(graph.vertex)
-print("Adjacency List:", graph.adj_list)
-print("BFS:", graph.bfs("A"))
-print("DFS:", graph.dfs("A"))
-print("Dijkstra from A:", graph.dijkstra("A"))
-print("Belman from A:", graph.bellman("A"))
+# Adding dependencies (edges)
+graph.add_edge("T1", "T2")
+graph.add_edge("T1", "T3")
+graph.add_edge("T3", "T4")
+graph.add_edge("T2", "T4")
+graph.add_edge("T4", "T5")
+graph.add_edge("T5", "T6")
+print(graph.adj_list)
+print(graph.bfs("T1"))
+print(graph.dfs("T1"))
+print(graph.topo_sort())
 
 
     

@@ -14,6 +14,7 @@ class Solution:
                 elif grid[r][c] == 1:
                     fresh += 1
         t=0
+        
         while queue:
             r, c, t = queue.pop(0)
             for dr, dc in directions:
